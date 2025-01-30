@@ -5,8 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import br.ifsp.edu.dmo1.noodle.data.dao.CourseDao
+import br.ifsp.edu.dmo1.noodle.data.dao.CourseUserDao
 import br.ifsp.edu.dmo1.noodle.data.dao.LessonDao
 import br.ifsp.edu.dmo1.noodle.data.dao.LessonDocumentDao
+import br.ifsp.edu.dmo1.noodle.data.dao.SessionDao
 import br.ifsp.edu.dmo1.noodle.data.dao.UserDao
 import br.ifsp.edu.dmo1.noodle.data.dao.WorkCommitDao
 import br.ifsp.edu.dmo1.noodle.data.dao.WorkCommitDocumentDao
@@ -50,4 +52,6 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun getWorkCommitDocumentDao(): WorkCommitDocumentDao
     abstract fun getWorkDocumentDao() : WorkDocumentDao
     abstract fun getLessonDocumentDao() : LessonDocumentDao
+    abstract fun getSessionDao() : SessionDao
+    abstract fun getCourseUserDao() : CourseUserDao
 }

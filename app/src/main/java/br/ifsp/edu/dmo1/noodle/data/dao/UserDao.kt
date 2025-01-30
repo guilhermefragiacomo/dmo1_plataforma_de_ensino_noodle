@@ -14,7 +14,7 @@ interface UserDao {
     suspend fun insertUser(user: User): Long
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertUser(vararg user: User): Long
+    suspend fun insertUsers(vararg user: User): Long
 
     @Delete
     suspend fun deleteUser(user: User): Int
@@ -26,5 +26,5 @@ interface UserDao {
     suspend fun getAll(): List<User>
 
     @Query("SELECT * FROM tb_user WHERE record = :id LIMIT 1")
-    suspend fun getUser(id: Long): User
+    suspend fun getUser(id: String): User
 }

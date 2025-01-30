@@ -18,8 +18,8 @@ class UserRepository(context : Context) {
     suspend fun remove(user: User): Boolean{
         return dao.deleteUser(user) > 0
     }
-    suspend fun findById(id: Long): User {
-        return dao.getUser(id)
+    suspend fun findByRecord(record: String): User {
+        return dao.getUser(record)
     }
     suspend fun findAll(): List<User>{
         return dao.getAll()
