@@ -15,15 +15,17 @@ import br.ifsp.edu.dmo1.noodle.data.dao.WorkCommitDocumentDao
 import br.ifsp.edu.dmo1.noodle.data.dao.WorkDao
 import br.ifsp.edu.dmo1.noodle.data.dao.WorkDocumentDao
 import br.ifsp.edu.dmo1.noodle.data.model.Course
+import br.ifsp.edu.dmo1.noodle.data.model.CourseUser
 import br.ifsp.edu.dmo1.noodle.data.model.Lesson
 import br.ifsp.edu.dmo1.noodle.data.model.LessonDocument
+import br.ifsp.edu.dmo1.noodle.data.model.Session
 import br.ifsp.edu.dmo1.noodle.data.model.User
 import br.ifsp.edu.dmo1.noodle.data.model.Work
 import br.ifsp.edu.dmo1.noodle.data.model.WorkCommit
 import br.ifsp.edu.dmo1.noodle.data.model.WorkCommitDocument
 import br.ifsp.edu.dmo1.noodle.data.model.WorkDocument
 
-@Database(entities = [Course::class, Lesson::class, LessonDocument::class, User::class, Work::class, WorkCommit::class, WorkCommitDocument::class, WorkDocument::class], version = 1)
+@Database(entities = [Course::class, Lesson::class, LessonDocument::class, User::class, Work::class, WorkCommit::class, WorkCommitDocument::class, WorkDocument::class, Session::class, CourseUser::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
     companion object {
         const val DATABASE_NAME = "app_noodle.db"

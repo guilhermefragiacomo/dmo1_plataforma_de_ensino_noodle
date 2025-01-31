@@ -14,7 +14,7 @@ interface WorkDocumentDao {
     suspend fun insertWorkDocument(workDocument: WorkDocument): Long
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertWorkDocument(vararg workDocument: WorkDocument): Long
+    suspend fun insertWorkDocuments(vararg workDocument: WorkDocument): List<Long>
 
     @Delete
     suspend fun deleteWorkDocument(workDocument: WorkDocument): Int

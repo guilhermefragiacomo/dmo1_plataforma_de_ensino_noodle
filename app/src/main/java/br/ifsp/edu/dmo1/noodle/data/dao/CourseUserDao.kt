@@ -15,7 +15,7 @@ interface CourseUserDao {
     suspend fun insertCourseUser(courseUser: CourseUser): Long
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertCourseUsers(vararg courseUser: CourseUser): Long
+    suspend fun insertCourseUsers(vararg courseUser: CourseUser): List<Long>
 
     @Delete
     suspend fun deleteCourseUser(courseUser: CourseUser): Int
@@ -23,7 +23,7 @@ interface CourseUserDao {
     @Update
     suspend fun updateCourseUser(courseUser: CourseUser): Int
 
-    @Query("SELECT * FROM tb_session ORDER BY session_id")
+    @Query("SELECT * FROM tb_course_user ORDER BY course_id")
     suspend fun getAll(): List<CourseUser>
 
     @Query("SELECT * FROM tb_course_user WHERE user_record = :record AND course_id = :id LIMIT 1")

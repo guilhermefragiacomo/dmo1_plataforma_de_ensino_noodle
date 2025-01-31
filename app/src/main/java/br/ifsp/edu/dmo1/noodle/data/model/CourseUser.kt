@@ -24,6 +24,8 @@ class CourseUser (
     @ColumnInfo(name = "user_record")
     var userRecord : String,
     @ColumnInfo(name = "course_id")
-    var courseId : String
+    var courseId : String,
+    @ColumnInfo(name = "course_role")
+    var courseRole : String
     ) {
 }

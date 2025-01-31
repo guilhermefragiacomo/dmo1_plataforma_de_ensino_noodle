@@ -14,7 +14,7 @@ interface LessonDao {
     suspend fun insertLesson(lesson: Lesson): Long
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertLessons(vararg lesson: Lesson): Long
+    suspend fun insertLessons(vararg lesson: Lesson): List<Long>
 
     @Delete
     suspend fun deleteLesson(lesson: Lesson): Int

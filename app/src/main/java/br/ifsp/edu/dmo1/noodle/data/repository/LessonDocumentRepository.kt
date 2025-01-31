@@ -10,7 +10,7 @@ class LessonDocumentRepository(context : Context) {
     private val dao = database.getLessonDocumentDao();
 
     suspend fun insert(lessonDocument: LessonDocument): Boolean{
-        return dao.insertLessonsDocument(lessonDocument) > 0
+        return dao.insertLessonDocument(lessonDocument) > 0
     }
     suspend fun update(lessonDocument: LessonDocument): Boolean{
         return dao.updateLessonDocument(lessonDocument) > 0

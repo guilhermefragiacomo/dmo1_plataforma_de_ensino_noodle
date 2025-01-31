@@ -18,15 +18,14 @@ class Lesson (
     @ColumnInfo(name = "description")
     var description : String = "",
     @ColumnInfo(name = "date")
-    var date : String = "",
-
-    dateLocalDate : LocalDate = LocalDate.now()
+    var date : String = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
     ) {
 
     @Ignore
     private val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
 
-    init {
-        date = formatter.format(dateLocalDate)
+    @Ignore
+    fun getDateAsLocalDate(): LocalDate {
+        return LocalDate.parse(date, formatter)
     }
 }

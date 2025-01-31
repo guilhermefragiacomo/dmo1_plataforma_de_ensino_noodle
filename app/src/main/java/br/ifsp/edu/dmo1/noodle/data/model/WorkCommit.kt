@@ -34,17 +34,15 @@ class WorkCommit (
     @ColumnInfo(name = "user_record")
     var userRecord : String,
     @ColumnInfo(name = "commit_date")
-    var commitDate : String = "",
+    var commitDate : String = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
     @ColumnInfo(name = "grade")
     var grade : Double = 0.0,
-
-    commitLocalDate : LocalDate = LocalDate.now()
     ) {
 
     @Ignore
     private val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
 
-    init {
-        commitDate = formatter.format(commitLocalDate)
+    fun getStartDateAsLocalDate(): LocalDate {
+        return LocalDate.parse(commitDate, formatter)
     }
 }

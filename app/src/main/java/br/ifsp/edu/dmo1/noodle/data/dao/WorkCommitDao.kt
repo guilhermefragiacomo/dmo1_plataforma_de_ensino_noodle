@@ -14,7 +14,7 @@ interface WorkCommitDao {
     suspend fun insertWorkCommit(workCommit: WorkCommit): Long
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertWorkCommit(vararg workCommit: WorkCommit): Long
+    suspend fun insertWorkCommits(vararg workCommit: WorkCommit): List<Long>
 
     @Delete
     suspend fun deleteWorkCommit(workCommit: WorkCommit): Int

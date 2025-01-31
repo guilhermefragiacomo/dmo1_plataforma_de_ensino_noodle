@@ -1,0 +1,54 @@
+package br.ifsp.edu.dmo1.noodle.ui.view
+
+import android.content.Intent
+import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import br.ifsp.edu.dmo1.noodle.R
+import br.ifsp.edu.dmo1.noodle.data.model.User
+import br.ifsp.edu.dmo1.noodle.databinding.ActivityMainBinding
+import br.ifsp.edu.dmo1.noodle.databinding.ActivitySigninBinding
+import br.ifsp.edu.dmo1.noodle.ui.viewmodel.MainViewModel
+import br.ifsp.edu.dmo1.noodle.ui.viewmodel.MainViewModelFactory
+import br.ifsp.edu.dmo1.noodle.ui.viewmodel.SignInViewModel
+import br.ifsp.edu.dmo1.noodle.ui.viewmodel.SignInViewModelFactory
+
+class SignInActivity : AppCompatActivity() {
+    private lateinit var binding : ActivitySigninBinding
+    private lateinit var viewModel: SignInViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivitySigninBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        val factory = SignInViewModelFactory(application)
+        viewModel = ViewModelProvider(this, factory).get(SignInViewModel::class.java)
+
+        setupListeners()
+    }
+
+    fun setupListeners() {
+        binding.btnSignIn.setOnClickListener {
+            val name = binding.etName.text.toString().trim()
+            val password = binding.etPassword.text.toString().trim()
+            val email = binding.etEmail.text.toString().trim()
+            var birth = binding.etBirthDate.text.toString().trim()
+            if (birth.length == 8) {
+                birth = birth.substring(0, 2) + "/" + birth.substring(2, 4) + "/" + birth.substring(4,)
+
+                try {
+                    viewModel.signUser(name, password, email, birth)
+                } catch (e : Exception) {
+                    Toast.makeText(this, getString(R.string.error_sign), Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(this, getString(R.string.birth_input), Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+}

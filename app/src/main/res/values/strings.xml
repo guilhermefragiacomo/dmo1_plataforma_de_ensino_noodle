@@ -1,3 +1,21 @@
 <resources>
-    <string name="app_name">noodle</string>
+    <string name="app_name">Noodle</string>
+    <string name="enter_record">Digite seu Prontuário</string>
+    <string name="enter_password">Digite sua Senha</string>
+    <string name="login">Entrar</string>
+    <string name="if_not_signin">Se não possui uma conta faça seu cadastro aqui</string>
+    <string name="full_name">Nome Completo</string>
+    <string name="email">E-Mail</string>
+    <string name="password">Senha</string>
+    <string name="birth_date">Data de nascimento</string>
+    <string name="signin">Cadastrar</string>
+    <string name="works">Tarefas</string>
+    <string name="courses">Cursos</string>
+    <string name="settings">Configurações</string>
+    <string name="error_sign">Ocorreu um erro ao cadastrar o seu usuário</string>
+    <string name="error_log">Ocorreu um erro ao entrar com o seu usuário</string>
+    <string name="wrong_pass">A senha está incorreta</string>
+    <string name="try_again">Tente novamente</string>
+    <string name="birth_input">A data de nascimento não foi corretamente preenchida</string>
+    <string name="fields_input">Um dos campos não foi preenchido corretamente</string>
 </resources>

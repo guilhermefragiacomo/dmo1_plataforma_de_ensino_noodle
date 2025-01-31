@@ -18,19 +18,18 @@ class Work (
     @ColumnInfo(name = "description")
     var description : String = "",
     @ColumnInfo(name = "start_date")
-    var startDate : String = "",
+    var startDate : String = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
     @ColumnInfo(name = "dead_line")
-    var deadLine : String = "",
-
-    startLocalDate : LocalDate = LocalDate.now(),
-    deadLineLocalDate : LocalDate = LocalDate.now().plusDays(1)
+    var deadLine : String = LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
     ) {
 
     @Ignore
     private val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
 
-    init {
-        startDate = formatter.format(startLocalDate)
-        deadLine = formatter.format(deadLineLocalDate)
+    fun getStartDateAsLocalDate(): LocalDate {
+        return LocalDate.parse(startDate, formatter)
+    }
+    fun getDeadLineAsLocalDate(): LocalDate {
+        return LocalDate.parse(deadLine, formatter)
     }
 }

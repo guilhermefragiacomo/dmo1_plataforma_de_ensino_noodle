@@ -14,7 +14,7 @@ interface WorkDao {
     suspend fun insertWork(work: Work): Long
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertWork(vararg work: Work): Long
+    suspend fun insertWorks(vararg work: Work): List<Long>
 
     @Delete
     suspend fun deleteWork(work: Work): Int

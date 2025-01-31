@@ -14,7 +14,7 @@ interface WorkCommitDocumentDao {
     suspend fun insertWorkCommitDocument(workCommitDocument: WorkCommitDocument): Long
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertWorkCommitDocument(vararg workCommitDocument: WorkCommitDocument): Long
+    suspend fun insertWorkCommitDocuments(vararg workCommitDocument: WorkCommitDocument): List<Long>
 
     @Delete
     suspend fun deleteWorkCommitDocument(workCommitDocument: WorkCommitDocument): Int

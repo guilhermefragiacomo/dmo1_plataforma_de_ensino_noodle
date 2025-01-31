@@ -15,7 +15,7 @@ interface SessionDao {
     suspend fun insertSession(session: Session): Long
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertSessions(vararg session: Session): Long
+    suspend fun insertSessions(vararg session: Session): List<Long>
 
     @Delete
     suspend fun deleteSession(session: Session): Int

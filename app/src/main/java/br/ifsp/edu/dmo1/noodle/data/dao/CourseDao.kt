@@ -14,7 +14,7 @@ interface CourseDao {
     suspend fun insertCourse(course: Course): Long
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertCourse(vararg courses: Course): Long
+    suspend fun insertCourses(vararg courses: Course): List<Long>
 
     @Delete
     suspend fun deleteCourse(course: Course): Int
