@@ -2,20 +2,15 @@ package br.ifsp.edu.dmo1.noodle.ui.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import br.ifsp.edu.dmo1.noodle.R
-import br.ifsp.edu.dmo1.noodle.data.model.User
-import br.ifsp.edu.dmo1.noodle.databinding.ActivityMainBinding
 import br.ifsp.edu.dmo1.noodle.databinding.ActivitySigninBinding
-import br.ifsp.edu.dmo1.noodle.ui.viewmodel.MainViewModel
-import br.ifsp.edu.dmo1.noodle.ui.viewmodel.MainViewModelFactory
 import br.ifsp.edu.dmo1.noodle.ui.viewmodel.SignInViewModel
-import br.ifsp.edu.dmo1.noodle.ui.viewmodel.SignInViewModelFactory
+import br.ifsp.edu.dmo1.noodle.ui.viewmodel.factory.SignInViewModelFactory
 
 class SignInActivity : AppCompatActivity() {
     private lateinit var binding : ActivitySigninBinding
@@ -50,5 +45,15 @@ class SignInActivity : AppCompatActivity() {
                 Toast.makeText(this, getString(R.string.birth_input), Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    fun setupObservers() {
+        viewModel.saved.observe(this, Observer {
+            Log.d("Noodle", "saved")
+            val mIntent = Intent(this, MainActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            }
+            startActivity(mIntent)
+        })
     }
 }

@@ -3,6 +3,7 @@ package br.ifsp.edu.dmo1.noodle.data.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import br.ifsp.edu.dmo1.noodle.util.sha256
 import java.time.LocalDate
@@ -10,7 +11,8 @@ import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.UUID
 
-@Entity(tableName = "tb_user")
+@Entity(tableName = "tb_user", indices = [Index(value = ["email"],
+    unique = true)])
 class User (
     @PrimaryKey
     @ColumnInfo(name = "record")

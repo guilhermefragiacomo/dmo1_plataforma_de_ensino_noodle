@@ -26,6 +26,10 @@
             android:name=".ui.view.SignInActivity"
             android:exported="true">
         </activity>
+        <activity
+            android:name=".ui.view.WorkHomeActivity"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>
