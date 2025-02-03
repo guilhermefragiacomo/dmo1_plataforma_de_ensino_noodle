@@ -27,5 +27,8 @@ interface CourseUserDao {
     suspend fun getAll(): List<CourseUser>
 
     @Query("SELECT * FROM tb_course_user WHERE user_record = :record AND course_id = :id LIMIT 1")
-    suspend fun getByCourseAndUser(id : Long, record: String): CourseUser
+    suspend fun getByCourseAndUser(id : String, record: String): CourseUser
+
+    @Query("SELECT * FROM tb_course_user WHERE user_record = :record")
+    suspend fun getByUser(record : String): List<CourseUser>
 }

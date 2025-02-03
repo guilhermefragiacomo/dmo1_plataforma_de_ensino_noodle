@@ -17,7 +17,7 @@ class CourseRepository(context : Context) {
     suspend fun remove(course: Course): Boolean{
         return dao.deleteCourse(course) > 0
     }
-    suspend fun findById(id: Long): Course{
+    suspend fun findById(id: String): Course{
         return dao.getCourse(id)
     }
     suspend fun findAll(): List<Course>{

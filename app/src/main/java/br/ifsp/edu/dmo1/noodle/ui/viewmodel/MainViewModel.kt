@@ -55,6 +55,8 @@ class MainViewModel(application : Application, private val preferencesHelper : P
     suspend fun saveSession(userRecord : String) {
         val session = Session(userRecord = userRecord)
         if (session_repository.insert(session)) {
+            val sessions = session_repository.findAll()
+
             preferencesHelper.saveSessionId(session.sessionId)
         }
     }

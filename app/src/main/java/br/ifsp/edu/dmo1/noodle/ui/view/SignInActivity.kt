@@ -49,11 +49,13 @@ class SignInActivity : AppCompatActivity() {
 
     fun setupObservers() {
         viewModel.saved.observe(this, Observer {
-            Log.d("Noodle", "saved")
-            val mIntent = Intent(this, MainActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            if (viewModel.saved.value == true) {
+                Log.d("Noodle", "saved")
+                val mIntent = Intent(this, MainActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                }
+                startActivity(mIntent)
             }
-            startActivity(mIntent)
         })
     }
 }

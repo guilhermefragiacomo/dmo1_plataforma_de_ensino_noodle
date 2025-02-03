@@ -19,12 +19,14 @@ class SignInViewModel(application : Application) : AndroidViewModel(application)
     private val _saved = MutableLiveData<Boolean>()
     val saved : LiveData<Boolean> = _saved
 
-
+    init {
+        _saved.value = false;
+    }
 
     fun signUser(name : String, password : String, email : String, birth : String) {
         val user = User.createNewUser(name, password, birth , email)
 
-        Log.d("Noodle", user.toString())
+        Log.d("Noodle", user.record)
 
         viewModelScope.launch {
             if (repository.findByRecord(user.record) != null) {

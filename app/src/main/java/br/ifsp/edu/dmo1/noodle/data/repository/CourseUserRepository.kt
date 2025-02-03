@@ -18,8 +18,11 @@ class CourseUserRepository(context : Context) {
     suspend fun remove(courseUser: CourseUser): Boolean{
         return dao.deleteCourseUser(courseUser) > 0
     }
-    suspend fun findByCourseAndUser(id: Long, record : String): CourseUser {
+    suspend fun findByCourseAndUser(id: String, record : String): CourseUser {
         return dao.getByCourseAndUser(id, record)
+    }
+    suspend fun findByUser(record : String) : List<CourseUser> {
+        return dao.getByUser(record)
     }
     suspend fun findAll(): List<CourseUser>{
         return dao.getAll()

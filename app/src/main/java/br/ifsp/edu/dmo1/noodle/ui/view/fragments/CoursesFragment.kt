@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,7 +22,7 @@ import br.ifsp.edu.dmo1.noodle.util.PreferencesHelper
 class CoursesFragment : Fragment(), CourseItemListener {
     private var _binding: FragmentCoursesBinding? = null
     private val binding get() = _binding!!
-    private lateinit var courseViewModel: CoursesViewModel
+    private lateinit var viewModel: CoursesViewModel
     private lateinit var courseAdapter: CourseAdapter
 
     override fun onCreateView(
@@ -43,7 +44,7 @@ class CoursesFragment : Fragment(), CourseItemListener {
 
         val preferencesHelper = PreferencesHelper(requireContext())
         val factory = CoursesViewModelFactory(requireActivity().application, preferencesHelper)
-        courseViewModel = ViewModelProvider(this, factory).get(CoursesViewModel::class.java)
+        viewModel = ViewModelProvider(this, factory).get(CoursesViewModel::class.java)
 
         setupObservers()
         setupListeners()
@@ -56,15 +57,34 @@ class CoursesFragment : Fragment(), CourseItemListener {
 
     fun setupListeners() {
         binding.ibAddCourse.setOnClickListener {
-            courseViewModel.addCourse("Novo Curso", "curso de teste feito para testes em ambiente de teste")
+            binding.courseListLayout.visibility = View.GONE
+            binding.courseAddLayout.visibility = View.VISIBLE
+        }
+
+        binding.btnBackFromAdd.setOnClickListener {
+            binding.courseListLayout.visibility = View.VISIBLE
+            binding.courseAddLayout.visibility = View.GONE
+        }
+
+        binding.btnCreateCourse.setOnClickListener {
+            binding.courseListLayout.visibility = View.VISIBLE
+            binding.courseAddLayout.visibility = View.GONE
+
+            viewModel.addCourse(binding.etCourseName.text.toString().trim(), binding.etCourseDescription.text.toString().trim())
         }
     }
 
     fun setupObservers() {
-        courseViewModel.courses.observe(viewLifecycleOwner) { courses ->
+        viewModel.courses.observe(viewLifecycleOwner) { courses ->
             courses?.let {
                 courseAdapter.submitDataset(it)
             }
         }
+        viewModel.saved.observe(viewLifecycleOwner, Observer {
+            if (viewModel.saved.value == true) {
+                binding.courseListLayout.visibility = View.VISIBLE
+                binding.courseAddLayout.visibility = View.GONE
+            }
+        })
     }
 }
