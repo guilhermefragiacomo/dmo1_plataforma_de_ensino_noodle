@@ -18,4 +18,6 @@
     <string name="try_again">Tente novamente</string>
     <string name="birth_input">A data de nascimento não foi corretamente preenchida</string>
     <string name="fields_input">Um dos campos não foi preenchido corretamente</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
