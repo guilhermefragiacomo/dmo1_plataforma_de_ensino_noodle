@@ -9,9 +9,9 @@ import br.ifsp.edu.dmo1.noodle.R
 import br.ifsp.edu.dmo1.noodle.ui.viewmodel.HomeViewModel
 import br.ifsp.edu.dmo1.noodle.util.PreferencesHelper
 import br.ifsp.edu.dmo1.noodle.databinding.ActivityHomeBinding
-import br.ifsp.edu.dmo1.noodle.ui.fragments.CoursesFragment
-import br.ifsp.edu.dmo1.noodle.ui.fragments.SettingsFragment
-import br.ifsp.edu.dmo1.noodle.ui.fragments.WorksFragment
+import br.ifsp.edu.dmo1.noodle.ui.view.fragments.CoursesFragment
+import br.ifsp.edu.dmo1.noodle.ui.view.fragments.SettingsFragment
+import br.ifsp.edu.dmo1.noodle.ui.view.fragments.WorksFragment
 import br.ifsp.edu.dmo1.noodle.ui.viewmodel.factory.HomeViewModelFactory
 
 class HomeActivity : AppCompatActivity() {

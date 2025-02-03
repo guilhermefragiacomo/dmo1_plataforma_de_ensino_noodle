@@ -1,4 +1,4 @@
-package br.ifsp.edu.dmo1.noodle.ui.fragments
+package br.ifsp.edu.dmo1.noodle.ui.view.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
