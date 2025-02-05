@@ -25,7 +25,7 @@ import br.ifsp.edu.dmo1.noodle.data.model.WorkCommit
 import br.ifsp.edu.dmo1.noodle.data.model.WorkCommitDocument
 import br.ifsp.edu.dmo1.noodle.data.model.WorkDocument
 
-@Database(entities = [Course::class, Lesson::class, LessonDocument::class, User::class, Work::class, WorkCommit::class, WorkCommitDocument::class, WorkDocument::class, Session::class, CourseUser::class], version = 1)
+@Database(entities = [Course::class, Lesson::class, LessonDocument::class, User::class, Work::class, WorkCommit::class, WorkCommitDocument::class, WorkDocument::class, Session::class, CourseUser::class], version = 4)
 abstract class AppDatabase : RoomDatabase() {
     companion object {
         const val DATABASE_NAME = "app_noodle.db"
@@ -39,6 +39,7 @@ abstract class AppDatabase : RoomDatabase() {
                             AppDatabase::class.java,
                             DATABASE_NAME
                         )
+                        .fallbackToDestructiveMigration()
                         .build()
                 }
             }

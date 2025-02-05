@@ -8,7 +8,7 @@ class PreferencesHelper(context : Context) {
         const val KEY_NAME = "SessionId"
     }
 
-    private val sharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE)
+    private val sharedPreferences = context.applicationContext.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE)
 
     fun saveSessionId(sessionId: String) {
         sharedPreferences.edit().putString(KEY_NAME, sessionId).apply()

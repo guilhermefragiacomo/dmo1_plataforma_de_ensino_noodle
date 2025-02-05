@@ -50,11 +50,13 @@ class MainActivity : AppCompatActivity() {
 
     fun setupObservers() {
         viewModel.logd.observe(this, Observer {
-            Log.d("Noodle", "logado")
-            val mIntent = Intent(this, WorkHomeActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            if (viewModel.logd.value == true) {
+                Log.d("Noodle", "logado")
+                val mIntent = Intent(this, HomeActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                }
+                startActivity(mIntent)
             }
-            startActivity(mIntent)
         })
     }
 

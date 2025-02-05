@@ -27,7 +27,7 @@
             android:exported="true">
         </activity>
         <activity
-            android:name=".ui.view.WorkHomeActivity"
+            android:name=".ui.view.HomeActivity"
             android:exported="true">
         </activity>
     </application>

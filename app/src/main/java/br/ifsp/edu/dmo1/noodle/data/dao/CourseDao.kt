@@ -26,5 +26,5 @@ interface CourseDao {
     suspend fun getAll(): List<Course>
 
     @Query("SELECT * FROM tb_course WHERE course_id = :id LIMIT 1")
-    suspend fun getCourse(id: Long): Course
+    suspend fun getCourse(id: String): Course
 }
