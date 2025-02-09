@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import br.ifsp.edu.dmo1.noodle.data.model.Lesson
+import br.ifsp.edu.dmo1.noodle.data.model.Work
 
 @Dao
 interface LessonDao {
@@ -27,4 +28,7 @@ interface LessonDao {
 
     @Query("SELECT * FROM tb_lesson WHERE lesson_id = :id LIMIT 1")
     suspend fun getLesson(id: Long): Lesson
+
+    @Query("SELECT * FROM tb_lesson WHERE course_id = :id")
+    suspend fun getWorksByCourse(id: String) : List<Lesson>
 }

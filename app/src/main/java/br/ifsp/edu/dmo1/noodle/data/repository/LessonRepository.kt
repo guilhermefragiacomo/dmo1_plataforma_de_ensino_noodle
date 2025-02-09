@@ -4,6 +4,7 @@ import android.content.Context
 import br.ifsp.edu.dmo1.noodle.data.database.AppDatabase
 import br.ifsp.edu.dmo1.noodle.data.model.Course
 import br.ifsp.edu.dmo1.noodle.data.model.Lesson
+import br.ifsp.edu.dmo1.noodle.data.model.Work
 
 class LessonRepository(context : Context) {
     private val database = AppDatabase.getInstance(context)
@@ -23,5 +24,8 @@ class LessonRepository(context : Context) {
     }
     suspend fun findAll(): List<Lesson>{
         return dao.getAll()
+    }
+    suspend fun getByCourse(course_id : String) : List<Lesson> {
+        return dao.getWorksByCourse(course_id)
     }
 }

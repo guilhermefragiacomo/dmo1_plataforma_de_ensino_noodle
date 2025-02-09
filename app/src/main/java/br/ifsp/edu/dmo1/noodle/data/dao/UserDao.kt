@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import br.ifsp.edu.dmo1.noodle.data.model.Lesson
 import br.ifsp.edu.dmo1.noodle.data.model.User
 
 @Dao

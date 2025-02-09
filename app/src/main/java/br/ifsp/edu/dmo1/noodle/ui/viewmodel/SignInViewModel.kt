@@ -31,8 +31,9 @@ class SignInViewModel(application : Application) : AndroidViewModel(application)
         viewModelScope.launch {
             if (repository.findByRecord(user.record) != null) {
                 Toast.makeText(getApplication<Application>(), getApplication<Application>().resources.getString(R.string.error_sign) + ", " + getApplication<Application>().resources.getString(R.string.try_again), Toast.LENGTH_SHORT).show() // não consegui enviar os erros de dentro da viewModel.launch para a activity, então coloquei os toasts aqui mesmo
+            } else {
+                _saved.value = repository.insert(user)
             }
-            _saved.value = repository.insert(user)
         }
     }
 }

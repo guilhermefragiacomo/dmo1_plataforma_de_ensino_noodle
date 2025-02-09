@@ -53,8 +53,6 @@ class CoursesFragment : Fragment(), CourseItemListener {
         val factory = CoursesViewModelFactory(requireActivity().application, preferencesHelper)
         viewModel = ViewModelProvider(this, factory).get(CoursesViewModel::class.java)
 
-        replaceFragment(CourseLessonFragment())
-
         setupObservers()
         setupListeners()
     }
@@ -88,9 +86,9 @@ class CoursesFragment : Fragment(), CourseItemListener {
         }
         binding.courseNavMenu.setOnItemSelectedListener {
             when(it.itemId) {
-                R.id.nav_lesson -> replaceFragment(CourseLessonFragment())
-                R.id.nav_course_works -> replaceFragment(CourseWorksFragment())
-                R.id.nav_users -> replaceFragment(CourseUserFragment())
+                R.id.nav_lesson -> replaceFragment(CourseLessonFragment(course_detail))
+                R.id.nav_course_works -> replaceFragment(CourseWorksFragment(course_detail))
+                R.id.nav_users -> replaceFragment(CourseUserFragment(course_detail))
                 else -> {
 
                 }
@@ -124,6 +122,8 @@ class CoursesFragment : Fragment(), CourseItemListener {
         binding.courseDetailsLayout.visibility = View.VISIBLE
 
         course_detail = course;
+
+        replaceFragment(CourseLessonFragment(course_detail))
 
         binding.tvCourseName.text = course_detail.name;
         binding.tvDescription.text = course_detail.description

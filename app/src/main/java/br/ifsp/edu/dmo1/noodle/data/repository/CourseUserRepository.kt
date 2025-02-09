@@ -3,7 +3,9 @@ package br.ifsp.edu.dmo1.noodle.data.repository
 import android.content.Context
 import br.ifsp.edu.dmo1.noodle.data.database.AppDatabase
 import br.ifsp.edu.dmo1.noodle.data.model.CourseUser
+import br.ifsp.edu.dmo1.noodle.data.model.Lesson
 import br.ifsp.edu.dmo1.noodle.data.model.Session
+import br.ifsp.edu.dmo1.noodle.data.model.User
 
 class CourseUserRepository(context : Context) {
     private val database = AppDatabase.getInstance(context)
@@ -26,5 +28,8 @@ class CourseUserRepository(context : Context) {
     }
     suspend fun findAll(): List<CourseUser>{
         return dao.getAll()
+    }
+    suspend fun getByCourse(course_id : String) : List<CourseUser> {
+        return dao.getCourseUsersByCourse(course_id)
     }
 }

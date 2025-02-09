@@ -24,4 +24,7 @@ class WorkRepository(context : Context) {
     suspend fun findAll(): List<Work>{
         return dao.getAll()
     }
+    suspend fun getByCourse(course_id : String) : List<Work> {
+        return dao.getWorksByCourse(course_id)
+    }
 }

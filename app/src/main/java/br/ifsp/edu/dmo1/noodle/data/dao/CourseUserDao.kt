@@ -31,4 +31,7 @@ interface CourseUserDao {
 
     @Query("SELECT * FROM tb_course_user WHERE user_record = :record")
     suspend fun getByUser(record : String): List<CourseUser>
+
+    @Query("SELECT * FROM tb_course_user WHERE course_id = :course_id")
+    suspend fun getCourseUsersByCourse(course_id : String) : List<CourseUser>
 }

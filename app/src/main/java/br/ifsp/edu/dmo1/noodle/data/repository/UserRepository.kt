@@ -2,6 +2,7 @@ package br.ifsp.edu.dmo1.noodle.data.repository
 
 import android.content.Context
 import br.ifsp.edu.dmo1.noodle.data.database.AppDatabase
+import br.ifsp.edu.dmo1.noodle.data.model.Lesson
 import br.ifsp.edu.dmo1.noodle.data.model.LessonDocument
 import br.ifsp.edu.dmo1.noodle.data.model.User
 

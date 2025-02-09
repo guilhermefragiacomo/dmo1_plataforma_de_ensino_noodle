@@ -28,4 +28,8 @@ class CourseUser (
     @ColumnInfo(name = "course_role")
     var courseRole : String
     ) {
+
+    override fun toString() : String {
+        return userRecord + " / " + courseId + " / " + courseRole;
+    }
 }

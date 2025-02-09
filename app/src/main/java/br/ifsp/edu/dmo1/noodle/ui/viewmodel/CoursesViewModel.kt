@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import br.ifsp.edu.dmo1.noodle.R
 import br.ifsp.edu.dmo1.noodle.data.model.Course
 import br.ifsp.edu.dmo1.noodle.data.model.CourseUser
 import br.ifsp.edu.dmo1.noodle.data.repository.CourseRepository
@@ -54,7 +55,7 @@ class CoursesViewModel(application : Application, private val preferencesHelper 
 
     fun addCourse(name : String, description : String) {
         viewModelScope.launch {
-            val course = Course(name = name, description = description)
+            val course = Course.createNewCourse(name = name, description = description)
 
             if (course_repository.insert(course)) {
                 val sessionId = preferencesHelper.getSessionId()
@@ -68,17 +69,17 @@ class CoursesViewModel(application : Application, private val preferencesHelper 
 
                         if (_saved.value == false) {
                             course_repository.remove(course)
-                            Toast.makeText(getApplication<Application>(), "Ocorreu um erro ao tentar salvar o curso", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(getApplication<Application>(), getApplication<Application>().getString(R.string.error_create_course), Toast.LENGTH_SHORT).show()
                         }
 
                         checkDatabase()
                     } else {
                         course_repository.remove(course)
-                        Toast.makeText(getApplication<Application>(), "Ocorreu um erro ao tentar salvar o curso", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(getApplication<Application>(), getApplication<Application>().getString(R.string.error_create_course), Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     course_repository.remove(course)
-                    Toast.makeText(getApplication<Application>(), "Ocorreu um erro ao tentar salvar o curso", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(getApplication<Application>(), getApplication<Application>().getString(R.string.error_create_course), Toast.LENGTH_SHORT).show()
                 }
             }
         }

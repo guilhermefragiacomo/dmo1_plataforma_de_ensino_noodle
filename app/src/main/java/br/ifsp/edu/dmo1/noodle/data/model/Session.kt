@@ -22,16 +22,23 @@ class Session (
     @Ignore
     private val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
 
-    init {
-        sessionId = generateSessionId();
+    companion object {
+        fun createNewSession(user_record: String, session_started: String = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))): Session {
+            return Session(
+                userRecord = user_record,
+                sessionStarted = session_started,
+                sessionId = generateSessionId()
+            )
+        }
+
+        @Ignore
+        fun generateSessionId() : String {
+            return "S" + UUID.randomUUID().toString().replace("-", "").take(10)
+        }
     }
 
     @Ignore
     fun getDateAsLocalDate(): LocalDate {
         return LocalDate.parse(sessionStarted, formatter)
-    }
-
-    fun generateSessionId() : String {
-        return "S" + UUID.randomUUID().toString().replace("-", "").take(10)
     }
 }

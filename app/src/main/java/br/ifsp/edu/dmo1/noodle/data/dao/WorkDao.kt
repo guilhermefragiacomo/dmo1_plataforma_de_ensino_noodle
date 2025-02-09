@@ -27,4 +27,7 @@ interface WorkDao {
 
     @Query("SELECT * FROM tb_work WHERE work_id = :id LIMIT 1")
     suspend fun getWork(id: Long): Work
+
+    @Query("SELECT * FROM tb_work WHERE course_id = :id")
+    suspend fun getWorksByCourse(id: String) : List<Work>
 }

@@ -18,6 +18,22 @@
     <string name="try_again">Tente novamente</string>
     <string name="birth_input">A data de nascimento não foi corretamente preenchida</string>
     <string name="fields_input">Um dos campos não foi preenchido corretamente</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="error_create_work">Erro ao criar a tarefa</string>
+    <string name="error_create_lesson">Erro ao criar a aula</string>
+    <string name="create_work">Criar Tarefa</string>
+    <string name="back">Voltar</string>
+    <string name="work_name">Nome da tarefa</string>
+    <string name="lesson_name">Nome da aula</string>
+    <string name="work_description">Descrição da tarefa</string>
+    <string name="lesson_description">Descrição da aula</string>
+    <string name="deadline">Prazo de entrega</string>
+    <string name="create">Criar</string>
+    <string name="create_lesson">Criar aula</string>
+    <string name="error_create_course">Ocorreu um erro ao tentar salvar o curso</string>
+    <string name="add_user">Adicionar Participante</string>
+    <string name="error_add_user">Erro ao adicionar o usuário</string>
+    <string name="course_name">Nome do Curso</string>
+    <string name="course_description">Descrição do curso</string>
+    <string name="create_course">Criar curso</string>
+    <string name="add_users">Adicionar Participantes</string>
 </resources>
