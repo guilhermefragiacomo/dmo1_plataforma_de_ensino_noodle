@@ -59,4 +59,8 @@ class Work (
     fun getDeadLineAsLocalDate(): LocalDate {
         return LocalDate.parse(deadLine, formatter)
     }
+
+    override fun toString(): String {
+        return name + " / " + description + " / " + course_id + " / " + startDate + " / " + deadLine;
+    }
 }

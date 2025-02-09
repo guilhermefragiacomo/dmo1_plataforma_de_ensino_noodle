@@ -73,8 +73,6 @@ class CourseWorksFragment(private val course : Course) : Fragment(), WorkItemLis
             if (deadline.length == 8) {
                 deadline = deadline.substring(4,) + "-" + deadline.substring(2, 4) + "-" + deadline.substring(0, 2)
 
-                Log.d("Noodle", deadline)
-
                 try {
                     viewModel.addWork(name, desc, dead_line = LocalDate.parse(deadline))
                     binding.courseWorkListLayout.visibility = View.VISIBLE
