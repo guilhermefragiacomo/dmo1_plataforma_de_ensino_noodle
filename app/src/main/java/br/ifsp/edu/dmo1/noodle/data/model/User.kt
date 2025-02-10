@@ -62,6 +62,6 @@ class User (
 
     @Ignore
     override fun toString(): String {
-        return "User(record='$record', name='$name', birth='$birth', email='$email', pass='$pass'"
+        return "User(record='$record', name='$name', birth='$birth', email='$email', pass='$pass', verified='$verified'"
     }
 }

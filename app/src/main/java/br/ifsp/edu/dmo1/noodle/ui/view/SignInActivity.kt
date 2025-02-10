@@ -56,7 +56,7 @@ class SignInActivity : AppCompatActivity() {
                 }
                 mIntent.putExtra("email", binding.etEmail.text.toString().trim())
                 mIntent.putExtra("user_record", viewModel.userRecord.value)
-                mIntent.putExtra("user_record", binding.etName.text.toString().trim())
+                mIntent.putExtra("user_name", binding.etName.text.toString().trim())
                 startActivity(mIntent)
             }
         })

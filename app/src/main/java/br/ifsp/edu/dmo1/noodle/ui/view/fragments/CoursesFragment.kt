@@ -53,6 +53,9 @@ class CoursesFragment : Fragment(), CourseItemListener {
         val factory = CoursesViewModelFactory(requireActivity().application, preferencesHelper)
         viewModel = ViewModelProvider(this, factory).get(CoursesViewModel::class.java)
 
+        binding.ibAddCourse.visibility = View.GONE
+        binding.tvAddCourse.visibility = View.GONE
+
         setupObservers()
         setupListeners()
     }
@@ -125,6 +128,14 @@ class CoursesFragment : Fragment(), CourseItemListener {
 
                     binding.tvLessonName.text = lesson.name
                     binding.tvLessonDescription.text = lesson.description
+                }
+            }
+        }
+        viewModel.allowed.observe(viewLifecycleOwner) { allowed ->
+            allowed?.let {
+                if (allowed == true) {
+                    binding.ibAddCourse.visibility = View.VISIBLE
+                    binding.tvAddCourse.visibility = View.VISIBLE
                 }
             }
         }

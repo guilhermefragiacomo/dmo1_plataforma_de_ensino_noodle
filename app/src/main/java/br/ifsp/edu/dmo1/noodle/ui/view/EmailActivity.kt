@@ -38,7 +38,7 @@ class EmailActivity : AppCompatActivity() {
             record_str = intent.getStringExtra("user_record").toString()
         }
         if (intent.hasExtra("user_name")) {
-            record_str = intent.getStringExtra("user_name").toString()
+            user_name_str = intent.getStringExtra("user_name").toString()
         }
 
         sendEmail()
@@ -51,7 +51,9 @@ class EmailActivity : AppCompatActivity() {
         binding.btnVerify.setOnClickListener {
             var code = binding.etCode.text.toString().trim()
 
-            viewModel.verifyCode(code);
+            if (record_str != null) {
+                viewModel.verifyCode(code, record_str);
+            }
         }
         binding.btnBackToMain.setOnClickListener {
             val mIntent = Intent(this, UserCreatedActivity::class.java).apply {
@@ -75,7 +77,7 @@ class EmailActivity : AppCompatActivity() {
                     mIntent.putExtra("user_record", record_str)
                 }
                 if (user_name_str != null) {
-                    mIntent.putExtra("user_record", user_name_str)
+                    mIntent.putExtra("user_name", user_name_str)
                 }
                 startActivity(mIntent)
             } else {

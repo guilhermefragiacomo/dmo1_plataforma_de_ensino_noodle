@@ -40,8 +40,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/courseUserAddLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/tvTittleAddUser"
@@ -56,15 +57,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewCourseUsersDB"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTittleAddUser" />
-
         <Button
             android:id="@+id/btnAddCourseUser"
             android:layout_width="0dp"
@@ -75,9 +67,18 @@
             android:textColor="#000000"
             android:textStyle="bold"
             android:layout_marginTop="50dp"
-            app:layout_constraintTop_toBottomOf="@id/recyclerViewCourseUsersDB"
+            app:layout_constraintTop_toBottomOf="@id/tvTittleAddUser"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewCourseUsersDB"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnAddCourseUser" />
 
         <Button
             android:id="@+id/btnBackFromUserAdd"

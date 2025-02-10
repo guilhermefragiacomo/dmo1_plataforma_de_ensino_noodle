@@ -44,6 +44,8 @@ class CourseWorksFragment(private val course : Course) : Fragment(), WorkItemLis
             adapter = workAdapter
         }
 
+        binding.btnAddWork.visibility = View.GONE
+
         val preferencesHelper = PreferencesHelper(requireContext())
         val factory = CourseWorkViewModelFactory(requireActivity().application, preferencesHelper, course)
         viewModel = ViewModelProvider(this, factory).get(CourseWorkViewModel::class.java)
@@ -91,6 +93,13 @@ class CourseWorksFragment(private val course : Course) : Fragment(), WorkItemLis
         viewModel.works.observe(viewLifecycleOwner) { works ->
             works?.let {
                 workAdapter.submitDataset(it)
+            }
+        }
+        viewModel.allowed.observe(viewLifecycleOwner) { allowed ->
+            allowed?.let {
+                if (allowed == true) {
+                    binding.btnAddWork.visibility = View.VISIBLE
+                }
             }
         }
     }

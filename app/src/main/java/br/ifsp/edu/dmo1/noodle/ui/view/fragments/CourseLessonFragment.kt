@@ -44,6 +44,8 @@ class CourseLessonFragment(private val course : Course) : Fragment(), LessonItem
             adapter = lessonAdapter
         }
 
+        binding.btnAddLesson.visibility = View.GONE
+
         val preferencesHelper = PreferencesHelper(requireContext())
         val factory = CourseLessonViewModelFactory(requireActivity().application, preferencesHelper, course)
         viewModel = ViewModelProvider(this, factory).get(CourseLessonViewModel::class.java)
@@ -86,6 +88,13 @@ class CourseLessonFragment(private val course : Course) : Fragment(), LessonItem
         viewModel.lessons.observe(viewLifecycleOwner) { lessons ->
             lessons?.let {
                 lessonAdapter.submitDataset(it)
+            }
+        }
+        viewModel.allowed.observe(viewLifecycleOwner) { allowed ->
+            allowed?.let {
+                if (allowed == true) {
+                    binding.btnAddLesson.visibility = View.VISIBLE
+                }
             }
         }
     }

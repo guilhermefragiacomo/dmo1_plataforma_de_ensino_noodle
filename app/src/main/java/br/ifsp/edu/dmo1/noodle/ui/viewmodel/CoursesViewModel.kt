@@ -15,12 +15,14 @@ import br.ifsp.edu.dmo1.noodle.data.model.Work
 import br.ifsp.edu.dmo1.noodle.data.repository.CourseRepository
 import br.ifsp.edu.dmo1.noodle.data.repository.CourseUserRepository
 import br.ifsp.edu.dmo1.noodle.data.repository.SessionRepository
+import br.ifsp.edu.dmo1.noodle.data.repository.UserRepository
 import br.ifsp.edu.dmo1.noodle.util.PreferencesHelper
 import kotlinx.coroutines.launch
 
 class CoursesViewModel(application : Application, private val preferencesHelper : PreferencesHelper) : AndroidViewModel(application) {
     private val course_repository = CourseRepository(application);
     private val course_user_repository = CourseUserRepository(application)
+    private val user_repository = UserRepository(application)
     private val session_repository = SessionRepository(application)
 
     private val _courses = MutableLiveData<List<Course>>()
@@ -32,9 +34,15 @@ class CoursesViewModel(application : Application, private val preferencesHelper 
     private val _selected_lesson = MutableLiveData<Lesson?>()
     val selected_lesson : LiveData<Lesson?> = _selected_lesson
 
+    private val _allowed = MutableLiveData<Boolean>()
+    val allowed : LiveData<Boolean> = _allowed
+
     init {
         checkDatabase()
         _saved.value = false;
+        _allowed.value = false;
+
+        check_allowed();
     }
 
     fun checkDatabase(){
@@ -92,5 +100,25 @@ class CoursesViewModel(application : Application, private val preferencesHelper 
 
     fun selectLesson(lesson : Lesson?) {
         _selected_lesson.value = lesson;
+    }
+
+    fun check_allowed() {
+        viewModelScope.launch {
+            val sessionId = preferencesHelper.getSessionId()
+
+            if (sessionId != null) {
+                val session = session_repository.findById(sessionId)
+
+                if (session != null) {
+                    var user = user_repository.findByRecord(session.userRecord)
+
+                    if (user != null) {
+                        if (user.verified == true) {
+                            _allowed.value = true;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

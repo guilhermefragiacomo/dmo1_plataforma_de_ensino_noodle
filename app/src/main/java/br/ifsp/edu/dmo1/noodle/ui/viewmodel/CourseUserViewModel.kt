@@ -12,6 +12,7 @@ import br.ifsp.edu.dmo1.noodle.data.model.User
 import br.ifsp.edu.dmo1.noodle.data.model.Work
 import br.ifsp.edu.dmo1.noodle.data.model.auxiliar.AddUser
 import br.ifsp.edu.dmo1.noodle.data.repository.CourseUserRepository
+import br.ifsp.edu.dmo1.noodle.data.repository.SessionRepository
 import br.ifsp.edu.dmo1.noodle.data.repository.UserRepository
 import br.ifsp.edu.dmo1.noodle.data.repository.WorkRepository
 import br.ifsp.edu.dmo1.noodle.util.PreferencesHelper
@@ -21,6 +22,7 @@ import java.time.LocalDate
 class CourseUserViewModel(application : Application, private val preferencesHelper : PreferencesHelper, private val course : Course) : AndroidViewModel(application) {
     private val user_repository = UserRepository(application);
     private val course_user_repository = CourseUserRepository(application)
+    private val session_repository = SessionRepository(application)
 
     private val _users = MutableLiveData<List<AddUser>>()
     val users : LiveData<List<AddUser>> = _users
@@ -31,9 +33,14 @@ class CourseUserViewModel(application : Application, private val preferencesHelp
     private val _inserted = MutableLiveData<Boolean>()
     val inserted : LiveData<Boolean> = _inserted
 
+    private val _allowed = MutableLiveData<Boolean>()
+    val allowed : LiveData<Boolean> = _allowed
+
     init {
         _inserted.value = false;
+        _allowed.value = false;
         checkDatabase()
+        check_allowed()
     }
 
     fun checkDatabase() {
@@ -73,6 +80,26 @@ class CourseUserViewModel(application : Application, private val preferencesHelp
 
             if (_inserted.value == true) {
                 checkDatabase()
+            }
+        }
+    }
+
+    fun check_allowed() {
+        viewModelScope.launch {
+            val sessionId = preferencesHelper.getSessionId()
+
+            if (sessionId != null) {
+                val session = session_repository.findById(sessionId)
+
+                if (session != null) {
+                    var course_user = course_user_repository.findByCourseAndUser(course.courseId, session.userRecord)
+
+                    if (course_user != null) {
+                        if (course_user.courseRole == "Professor") {
+                            _allowed.value = true;
+                        }
+                    }
+                }
             }
         }
     }

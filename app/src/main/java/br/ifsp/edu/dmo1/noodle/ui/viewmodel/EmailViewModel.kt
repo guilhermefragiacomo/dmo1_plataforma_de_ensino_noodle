@@ -11,10 +11,16 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import br.ifsp.edu.dmo1.noodle.data.model.User
+import br.ifsp.edu.dmo1.noodle.data.repository.UserRepository
+import kotlinx.coroutines.launch
 import java.util.UUID
 
 
 class EmailViewModel(application : Application) : AndroidViewModel(application) {
+    private val user_repository = UserRepository(application)
+
     private val code = generateCode()
 
     private val _verified = MutableLiveData<Boolean>()
@@ -28,11 +34,22 @@ class EmailViewModel(application : Application) : AndroidViewModel(application) 
         _verified.value = false;
     }
 
-    fun verifyCode(code_input : String) {
-        if (code_input.equals(code)) {
-            _verified.value = true;
-        } else {
-            _verified.value = false;
+    fun verifyCode(code_input : String, user_record : String) {
+        viewModelScope.launch {
+            if (code_input.equals(code)) {
+                var user = user_repository.findByRecord(user_record)
+
+                if (user != null) {
+                    var newUser = User(user.record, user.name, user.birth, user.email, user.pass, true)
+
+                    Log.d("Noodle_test", user.toString())
+                    Log.d("Noodle_test", newUser.toString())
+                    if (user_repository.update(newUser)) {
+                        Log.d("Noodle_test", "adwad")
+                        _verified.value = true;
+                    }
+                }
+            }
         }
     }
 

@@ -49,6 +49,8 @@ class CourseUserFragment(private val course : Course) : Fragment(), UserItemList
             adapter = courseUserAdapter
         }
 
+        binding.btnAddUsers.visibility = View.GONE
+
         val preferencesHelper = PreferencesHelper(requireContext())
         val factory = CourseUserViewModelFactory(requireActivity().application, preferencesHelper, course)
         viewModel = ViewModelProvider(this, factory).get(CourseUserViewModel::class.java)
@@ -103,6 +105,13 @@ class CourseUserFragment(private val course : Course) : Fragment(), UserItemList
         viewModel.course_users.observe(viewLifecycleOwner) { course_users ->
             course_users?.let {
                 courseUserAdapter.submitDataset(it)
+            }
+        }
+        viewModel.allowed.observe(viewLifecycleOwner) { allowed ->
+            allowed?.let {
+                if (allowed == true) {
+                    binding.btnAddUsers.visibility = View.VISIBLE
+                }
             }
         }
     }
