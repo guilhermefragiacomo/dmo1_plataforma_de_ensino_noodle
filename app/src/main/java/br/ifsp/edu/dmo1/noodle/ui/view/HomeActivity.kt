@@ -3,6 +3,7 @@ package br.ifsp.edu.dmo1.noodle.ui.view
 import android.os.Bundle
 import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import br.ifsp.edu.dmo1.noodle.R

@@ -95,6 +95,13 @@ class CoursesFragment : Fragment(), CourseItemListener {
             }
             true
         }
+
+        binding.btnBackFromLessonDetails.setOnClickListener {
+            binding.courseLayout.visibility = View.VISIBLE
+            binding.lessonLayout.visibility = View.GONE
+
+            viewModel.selectLesson(null)
+        }
     }
 
     fun setupObservers() {
@@ -109,6 +116,18 @@ class CoursesFragment : Fragment(), CourseItemListener {
                 binding.courseAddLayout.visibility = View.GONE
             }
         })
+
+        viewModel.selected_lesson.observe(viewLifecycleOwner) { lesson ->
+            lesson?.let {
+                if (viewModel.selected_lesson.value != null) {
+                    binding.courseLayout.visibility = View.GONE;
+                    binding.lessonLayout.visibility = View.VISIBLE
+
+                    binding.tvLessonName.text = lesson.name
+                    binding.tvLessonDescription.text = lesson.description
+                }
+            }
+        }
     }
 
     private fun replaceFragment(fragment : Fragment) {

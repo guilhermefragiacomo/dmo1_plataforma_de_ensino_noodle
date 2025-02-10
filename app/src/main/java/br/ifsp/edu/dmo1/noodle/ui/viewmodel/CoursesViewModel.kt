@@ -10,6 +10,8 @@ import androidx.lifecycle.viewModelScope
 import br.ifsp.edu.dmo1.noodle.R
 import br.ifsp.edu.dmo1.noodle.data.model.Course
 import br.ifsp.edu.dmo1.noodle.data.model.CourseUser
+import br.ifsp.edu.dmo1.noodle.data.model.Lesson
+import br.ifsp.edu.dmo1.noodle.data.model.Work
 import br.ifsp.edu.dmo1.noodle.data.repository.CourseRepository
 import br.ifsp.edu.dmo1.noodle.data.repository.CourseUserRepository
 import br.ifsp.edu.dmo1.noodle.data.repository.SessionRepository
@@ -26,6 +28,9 @@ class CoursesViewModel(application : Application, private val preferencesHelper 
 
     private val _saved = MutableLiveData<Boolean>()
     val saved : LiveData<Boolean> = _saved
+
+    private val _selected_lesson = MutableLiveData<Lesson?>()
+    val selected_lesson : LiveData<Lesson?> = _selected_lesson
 
     init {
         checkDatabase()
@@ -83,5 +88,9 @@ class CoursesViewModel(application : Application, private val preferencesHelper 
                 }
             }
         }
+    }
+
+    fun selectLesson(lesson : Lesson?) {
+        _selected_lesson.value = lesson;
     }
 }

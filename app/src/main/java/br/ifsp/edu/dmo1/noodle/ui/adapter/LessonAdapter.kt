@@ -8,6 +8,7 @@ import br.ifsp.edu.dmo1.noodle.R
 import br.ifsp.edu.dmo1.noodle.data.model.Lesson
 import br.ifsp.edu.dmo1.noodle.databinding.LessonItemBinding
 import br.ifsp.edu.dmo1.noodle.ui.listeners.LessonItemListener
+import br.ifsp.edu.dmo1.noodle.ui.view.HomeActivity
 
 class LessonAdapter(private val listener: LessonItemListener) :
     RecyclerView.Adapter<LessonAdapter.ViewHolder>() {
@@ -24,6 +25,11 @@ class LessonAdapter(private val listener: LessonItemListener) :
 
         holder.binding.lessonName.text = lesson.name
         holder.binding.lessondescription.text = lesson.description
+
+        holder.binding.viewLesson.setOnLongClickListener {
+            listener.click(position)
+            true
+        }
     }
     override fun getItemCount(): Int {
         return dataset.size

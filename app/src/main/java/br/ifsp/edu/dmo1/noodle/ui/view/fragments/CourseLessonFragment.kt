@@ -15,6 +15,7 @@ import br.ifsp.edu.dmo1.noodle.databinding.FragmentCourseLessonBinding
 import br.ifsp.edu.dmo1.noodle.ui.adapter.LessonAdapter
 import br.ifsp.edu.dmo1.noodle.ui.listeners.LessonItemListener
 import br.ifsp.edu.dmo1.noodle.ui.viewmodel.CourseLessonViewModel
+import br.ifsp.edu.dmo1.noodle.ui.viewmodel.CoursesViewModel
 import br.ifsp.edu.dmo1.noodle.ui.viewmodel.factory.CourseLessonViewModelFactory
 import br.ifsp.edu.dmo1.noodle.util.PreferencesHelper
 import java.time.LocalDate
@@ -23,6 +24,7 @@ class CourseLessonFragment(private val course : Course) : Fragment(), LessonItem
     private var _binding: FragmentCourseLessonBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: CourseLessonViewModel
+    private lateinit var courseViewModel : CoursesViewModel
     private lateinit var lessonAdapter: LessonAdapter
 
     override fun onCreateView(
@@ -45,6 +47,7 @@ class CourseLessonFragment(private val course : Course) : Fragment(), LessonItem
         val preferencesHelper = PreferencesHelper(requireContext())
         val factory = CourseLessonViewModelFactory(requireActivity().application, preferencesHelper, course)
         viewModel = ViewModelProvider(this, factory).get(CourseLessonViewModel::class.java)
+        courseViewModel = ViewModelProvider(requireParentFragment()).get(CoursesViewModel::class.java)
 
         setupListeners()
         setupObservers()
@@ -85,5 +88,10 @@ class CourseLessonFragment(private val course : Course) : Fragment(), LessonItem
                 lessonAdapter.submitDataset(it)
             }
         }
+    }
+
+    override fun click(position: Int) {
+        val lesson = lessonAdapter.getDatasetItem(position)
+        courseViewModel.selectLesson(lesson);
     }
 }
