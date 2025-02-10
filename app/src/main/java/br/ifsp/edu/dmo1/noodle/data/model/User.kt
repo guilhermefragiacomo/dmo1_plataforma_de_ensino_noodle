@@ -24,20 +24,23 @@ class User (
     @ColumnInfo(name = "email")
     var email : String,
     @ColumnInfo(name = "pass")
-    var pass : String
+    var pass : String,
+    @ColumnInfo(name = "verified")
+    var verified : Boolean
     ) {
 
     @Ignore
     private val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
 
     companion object {
-        fun createNewUser(name: String, password : String, birth : String, email : String) : User {
+        fun createNewUser(name: String, password : String, birth : String, email : String, verified : Boolean) : User {
             return User(
                 record = generateRecord(),
                 name = name,
                 birth = birth,
                 email = email,
-                pass = hashPassword(password)
+                pass = hashPassword(password),
+                verified = verified
             )
         }
 

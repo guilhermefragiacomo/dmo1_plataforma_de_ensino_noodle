@@ -16,15 +16,15 @@ import java.nio.file.FileAlreadyExistsException
 class SignInViewModel(application : Application) : AndroidViewModel(application) {
     private val repository = UserRepository(application);
 
-    private val _saved = MutableLiveData<Boolean>()
-    val saved : LiveData<Boolean> = _saved
+    private val _userRecord = MutableLiveData<String>()
+    val userRecord : LiveData<String> = _userRecord
 
     init {
-        _saved.value = false;
+        _userRecord.value = null;
     }
 
     fun signUser(name : String, password : String, email : String, birth : String) {
-        val user = User.createNewUser(name, password, birth , email)
+        val user = User.createNewUser(name, password, birth , email, false)
 
         Log.d("Noodle", user.record)
 
@@ -32,7 +32,9 @@ class SignInViewModel(application : Application) : AndroidViewModel(application)
             if (repository.findByRecord(user.record) != null) {
                 Toast.makeText(getApplication<Application>(), getApplication<Application>().resources.getString(R.string.error_sign) + ", " + getApplication<Application>().resources.getString(R.string.try_again), Toast.LENGTH_SHORT).show() // não consegui enviar os erros de dentro da viewModel.launch para a activity, então coloquei os toasts aqui mesmo
             } else {
-                _saved.value = repository.insert(user)
+                if (repository.insert(user) == true) {
+                    _userRecord.value = user.record
+                }
             }
         }
     }

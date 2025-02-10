@@ -37,4 +37,11 @@
     <string name="create_course">Criar curso</string>
     <string name="add_users">Adicionar Participantes</string>
     <string name="active_works">Tarefas ativas</string>
+    <string name="verify_your_email">Verifique seu email</string>
+    <string name="enter_code">Digite o código</string>
+    <string name="verify">Verificar</string>
+    <string name="verification_explanation">Caso seu email não seja verificado não será possível criar novos cursos</string>
+    <string name="continue_">Continuar</string>
+    <string name="user_record">Prontuário</string>
+    <string name="record_copyied">Prontuário Copiado</string>
 </resources>

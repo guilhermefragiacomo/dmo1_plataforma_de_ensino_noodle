@@ -25,6 +25,7 @@ class SignInActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, factory).get(SignInViewModel::class.java)
 
         setupListeners()
+        setupObservers()
     }
 
     fun setupListeners() {
@@ -48,12 +49,14 @@ class SignInActivity : AppCompatActivity() {
     }
 
     fun setupObservers() {
-        viewModel.saved.observe(this, Observer {
-            if (viewModel.saved.value == true) {
-                Log.d("Noodle", "saved")
-                val mIntent = Intent(this, MainActivity::class.java).apply {
+        viewModel.userRecord.observe(this, Observer {
+            if (viewModel.userRecord.value != null) {
+                val mIntent = Intent(this, EmailActivity::class.java).apply {
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 }
+                mIntent.putExtra("email", binding.etEmail.text.toString().trim())
+                mIntent.putExtra("user_record", viewModel.userRecord.value)
+                mIntent.putExtra("user_record", binding.etName.text.toString().trim())
                 startActivity(mIntent)
             }
         })
