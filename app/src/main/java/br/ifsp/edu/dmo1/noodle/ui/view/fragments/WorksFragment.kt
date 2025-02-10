@@ -17,6 +17,7 @@ import br.ifsp.edu.dmo1.noodle.databinding.FragmentWorksBinding
 import br.ifsp.edu.dmo1.noodle.ui.adapter.WorkAdapter
 import br.ifsp.edu.dmo1.noodle.ui.listeners.WorkItemListener
 import br.ifsp.edu.dmo1.noodle.ui.viewmodel.CourseWorkViewModel
+import br.ifsp.edu.dmo1.noodle.ui.viewmodel.HomeViewModel
 import br.ifsp.edu.dmo1.noodle.ui.viewmodel.WorksViewModel
 import br.ifsp.edu.dmo1.noodle.ui.viewmodel.factory.CourseWorkViewModelFactory
 import br.ifsp.edu.dmo1.noodle.ui.viewmodel.factory.WorksViewModelFactory
@@ -26,6 +27,7 @@ class WorksFragment : Fragment(), WorkItemListener {
     private var _binding: FragmentWorksBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: WorksViewModel
+    private lateinit var homeViewModel : HomeViewModel
     private lateinit var workAdapter: WorkAdapter
 
     override fun onCreateView(
@@ -48,6 +50,7 @@ class WorksFragment : Fragment(), WorkItemListener {
         val preferencesHelper = PreferencesHelper(requireContext())
         val factory = WorksViewModelFactory(requireActivity().application, preferencesHelper)
         viewModel = ViewModelProvider(this, factory).get(WorksViewModel::class.java)
+        homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
 
         setupObservers()
         setupListeners();
@@ -64,6 +67,19 @@ class WorksFragment : Fragment(), WorkItemListener {
                 workAdapter.submitDataset(it)
             }
         }
+
+        homeViewModel.selected_work.observe(viewLifecycleOwner) { work ->
+            work?.let {
+                if (work != null) {
+                    binding.workListLayout.visibility = View.GONE
+                    binding.workDetailsLayout.visibility = View.VISIBLE
+
+                    binding.tvWorkName.text = work.name
+                    binding.tvWorkDescription.text = work.description
+                    binding.tvWorkDeadline.text = work.deadLine
+                }
+            }
+        }
     }
 
     fun setupListeners() {
@@ -73,6 +89,12 @@ class WorksFragment : Fragment(), WorkItemListener {
                 .setAction(Intent.ACTION_GET_CONTENT)
 
             startActivityForResult(Intent.createChooser(intent, "Escolha um arquivo"), 111)
+        }
+
+        binding.btnBackFromDetails.setOnClickListener {
+            binding.workListLayout.visibility = View.VISIBLE
+            binding.workDetailsLayout.visibility = View.GONE
+            homeViewModel.selectWork(null);
         }
     }
 
@@ -84,5 +106,10 @@ class WorksFragment : Fragment(), WorkItemListener {
 
             Log.d("Noodle_test", selectedFile.toString())
         }
+    }
+
+    override fun click(position: Int) {
+        val work = workAdapter.getDatasetItem(position)
+        homeViewModel.selectWork(work);
     }
 }

@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import br.ifsp.edu.dmo1.noodle.R
 import br.ifsp.edu.dmo1.noodle.data.model.Session
+import br.ifsp.edu.dmo1.noodle.data.model.Work
 import br.ifsp.edu.dmo1.noodle.data.repository.SessionRepository
 import br.ifsp.edu.dmo1.noodle.data.repository.UserRepository
 import br.ifsp.edu.dmo1.noodle.util.PreferencesHelper

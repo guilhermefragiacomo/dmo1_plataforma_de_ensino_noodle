@@ -40,6 +40,14 @@ class HomeActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
+    fun showWorksFragment() {
+        val workFragment = WorksFragment()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, workFragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
     private fun setupListeners() {
         binding.bottomNavigation.setOnItemSelectedListener {
             when(it.itemId) {

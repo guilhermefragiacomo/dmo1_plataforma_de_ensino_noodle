@@ -15,6 +15,7 @@ import br.ifsp.edu.dmo1.noodle.databinding.FragmentCourseWorksBinding
 import br.ifsp.edu.dmo1.noodle.ui.adapter.WorkAdapter
 import br.ifsp.edu.dmo1.noodle.ui.listeners.WorkItemListener
 import br.ifsp.edu.dmo1.noodle.ui.viewmodel.CourseWorkViewModel
+import br.ifsp.edu.dmo1.noodle.ui.viewmodel.HomeViewModel
 import br.ifsp.edu.dmo1.noodle.ui.viewmodel.factory.CourseWorkViewModelFactory
 import br.ifsp.edu.dmo1.noodle.util.PreferencesHelper
 import java.time.LocalDate
@@ -23,6 +24,7 @@ class CourseWorksFragment(private val course : Course) : Fragment(), WorkItemLis
     private var _binding: FragmentCourseWorksBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: CourseWorkViewModel
+    private lateinit var homeViewModel : HomeViewModel
     private lateinit var workAdapter: WorkAdapter
 
     override fun onCreateView(
@@ -45,6 +47,7 @@ class CourseWorksFragment(private val course : Course) : Fragment(), WorkItemLis
         val preferencesHelper = PreferencesHelper(requireContext())
         val factory = CourseWorkViewModelFactory(requireActivity().application, preferencesHelper, course)
         viewModel = ViewModelProvider(this, factory).get(CourseWorkViewModel::class.java)
+        homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
 
         setupListeners()
         setupObservers()
@@ -90,5 +93,9 @@ class CourseWorksFragment(private val course : Course) : Fragment(), WorkItemLis
                 workAdapter.submitDataset(it)
             }
         }
+    }
+    override fun click(position: Int) {
+        val work = workAdapter.getDatasetItem(position)
+        homeViewModel.selectWork(work);
     }
 }
