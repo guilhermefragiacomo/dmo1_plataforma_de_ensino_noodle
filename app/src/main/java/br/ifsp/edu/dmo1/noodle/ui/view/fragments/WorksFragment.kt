@@ -1,5 +1,8 @@
 package br.ifsp.edu.dmo1.noodle.ui.view.fragments
 
+import android.app.Activity
+import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -47,6 +50,7 @@ class WorksFragment : Fragment(), WorkItemListener {
         viewModel = ViewModelProvider(this, factory).get(WorksViewModel::class.java)
 
         setupObservers()
+        setupListeners();
     }
 
     override fun onDestroyView() {
@@ -59,6 +63,26 @@ class WorksFragment : Fragment(), WorkItemListener {
             works?.let {
                 workAdapter.submitDataset(it)
             }
+        }
+    }
+
+    fun setupListeners() {
+        binding.btnWorkSendFile.setOnClickListener {
+            val intent = Intent()
+                .setType("*/*")
+                .setAction(Intent.ACTION_GET_CONTENT)
+
+            startActivityForResult(Intent.createChooser(intent, "Escolha um arquivo"), 111)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 111 && resultCode == RESULT_OK) {
+            val selectedFile = data?.data
+
+            Log.d("Noodle_test", selectedFile.toString())
         }
     }
 }
