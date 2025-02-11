@@ -1,5 +1,7 @@
 package br.ifsp.edu.dmo1.noodle.ui.view.fragments
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -87,6 +89,14 @@ class CourseWorksFragment(private val course : Course) : Fragment(), WorkItemLis
                 }
             }
         }
+
+        binding.btnWorkSendFile.setOnClickListener {
+            val intent = Intent()
+                .setType("*/*")
+                .setAction(Intent.ACTION_GET_CONTENT)
+
+            startActivityForResult(Intent.createChooser(intent, "Escolha um arquivo"), 111)
+        }
     }
 
     fun setupObservers() {
@@ -106,5 +116,17 @@ class CourseWorksFragment(private val course : Course) : Fragment(), WorkItemLis
     override fun click(position: Int) {
         val work = workAdapter.getDatasetItem(position)
         homeViewModel.selectWork(work);
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 111 && resultCode == RESULT_OK) {
+            val selectedFile = data?.data
+
+            Log.d("Noodle_test", selectedFile.toString())
+
+            viewModel.saveDocument(selectedFile.toString())
+        }
     }
 }

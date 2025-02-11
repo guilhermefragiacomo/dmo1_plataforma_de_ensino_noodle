@@ -105,6 +105,8 @@ class WorksFragment : Fragment(), WorkItemListener {
             val selectedFile = data?.data
 
             Log.d("Noodle_test", selectedFile.toString())
+
+            viewModel.saveDocument(selectedFile.toString());
         }
     }
 

@@ -7,9 +7,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import br.ifsp.edu.dmo1.noodle.data.model.Course
+import br.ifsp.edu.dmo1.noodle.data.model.LessonDocument
 import br.ifsp.edu.dmo1.noodle.data.model.Work
+import br.ifsp.edu.dmo1.noodle.data.model.WorkDocument
 import br.ifsp.edu.dmo1.noodle.data.repository.CourseUserRepository
 import br.ifsp.edu.dmo1.noodle.data.repository.SessionRepository
+import br.ifsp.edu.dmo1.noodle.data.repository.WorkDocumentRepository
 import br.ifsp.edu.dmo1.noodle.data.repository.WorkRepository
 import br.ifsp.edu.dmo1.noodle.util.PreferencesHelper
 import kotlinx.coroutines.launch
@@ -19,6 +22,7 @@ class CourseWorkViewModel(application : Application, private val preferencesHelp
     private val work_repository = WorkRepository(application);
     private val session_repository = SessionRepository(application)
     private val course_user_repository = CourseUserRepository(application)
+    private val work_document_repository = WorkDocumentRepository(application)
 
     private val _works = MutableLiveData<List<Work>>()
     val works : LiveData<List<Work>> = _works
@@ -28,6 +32,9 @@ class CourseWorkViewModel(application : Application, private val preferencesHelp
 
     private val _allowed = MutableLiveData<Boolean>()
     val allowed : LiveData<Boolean> = _allowed
+
+    private val _file = MutableLiveData<String>()
+    val file : LiveData<String> = _file;
 
     init {
         _inserted.value = false;
@@ -51,6 +58,12 @@ class CourseWorkViewModel(application : Application, private val preferencesHelp
             _inserted.value = work_repository.insert(work)
 
             if (_inserted.value == true) {
+                var wd =
+                    _file.value?.let { WorkDocument(workId = work.workId, document = it, name = it.split("/").last()) };
+                if (wd != null) {
+                    work_document_repository.insert(wd)
+                }
+
                 checkDatabase()
             }
         }
@@ -74,5 +87,9 @@ class CourseWorkViewModel(application : Application, private val preferencesHelp
                 }
             }
         }
+    }
+
+    fun saveDocument(file : String) {
+        _file.value = file;
     }
 }

@@ -1,5 +1,7 @@
 package br.ifsp.edu.dmo1.noodle.ui.view.fragments
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -71,6 +73,14 @@ class CourseLessonFragment(private val course : Course) : Fragment(), LessonItem
             binding.courseLessonAddLayout.visibility = View.GONE
         }
 
+        binding.btnLessonSendFile.setOnClickListener {
+            val intent = Intent()
+                .setType("*/*")
+                .setAction(Intent.ACTION_GET_CONTENT)
+
+            startActivityForResult(Intent.createChooser(intent, "Escolha um arquivo"), 111)
+        }
+
         binding.btnCreateWork.setOnClickListener {
             val name = binding.etLessonName.text.toString().trim()
             val desc = binding.etLessonDescription.text.toString().trim()
@@ -81,6 +91,18 @@ class CourseLessonFragment(private val course : Course) : Fragment(), LessonItem
             } catch (e : Exception) {
                 Toast.makeText(requireContext(), getString(R.string.error_create_lesson), Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 111 && resultCode == RESULT_OK) {
+            val selectedFile = data?.data
+
+            Log.d("Noodle_test", selectedFile.toString())
+
+            viewModel.saveDocument(selectedFile.toString())
         }
     }
 

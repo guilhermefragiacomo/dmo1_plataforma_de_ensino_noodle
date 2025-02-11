@@ -7,8 +7,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import br.ifsp.edu.dmo1.noodle.data.model.Course
 import br.ifsp.edu.dmo1.noodle.data.model.Lesson
+import br.ifsp.edu.dmo1.noodle.data.model.LessonDocument
 import br.ifsp.edu.dmo1.noodle.data.model.Work
 import br.ifsp.edu.dmo1.noodle.data.repository.CourseUserRepository
+import br.ifsp.edu.dmo1.noodle.data.repository.LessonDocumentRepository
 import br.ifsp.edu.dmo1.noodle.data.repository.LessonRepository
 import br.ifsp.edu.dmo1.noodle.data.repository.SessionRepository
 import br.ifsp.edu.dmo1.noodle.util.PreferencesHelper
@@ -17,6 +19,7 @@ import java.time.LocalDate
 
 class CourseLessonViewModel(application : Application, private val preferencesHelper : PreferencesHelper, private val course : Course) : AndroidViewModel(application) {
     private val lesson_repository = LessonRepository(application);
+    private val lesson_document_repository = LessonDocumentRepository(application)
     private val course_user_repository = CourseUserRepository(application)
     private val session_repository = SessionRepository(application)
 
@@ -28,6 +31,9 @@ class CourseLessonViewModel(application : Application, private val preferencesHe
 
     private val _allowed = MutableLiveData<Boolean>()
     val allowed : LiveData<Boolean> = _allowed
+
+    private val _file = MutableLiveData<String>()
+    val file : LiveData<String> = _file;
 
     init {
         _inserted.value = false;
@@ -51,6 +57,12 @@ class CourseLessonViewModel(application : Application, private val preferencesHe
             _inserted.value = lesson_repository.insert(lesson)
 
             if (_inserted.value == true) {
+
+                var ld =
+                    _file.value?.let { LessonDocument(lessonId = lesson.lessonId, document = it, name = it.split("/").last()) };
+                if (ld != null) {
+                    lesson_document_repository.insert(ld)
+                }
                 checkDatabase()
             }
         }
@@ -74,5 +86,9 @@ class CourseLessonViewModel(application : Application, private val preferencesHe
                 }
             }
         }
+    }
+
+    fun saveDocument(file : String) {
+        _file.value = file;
     }
 }

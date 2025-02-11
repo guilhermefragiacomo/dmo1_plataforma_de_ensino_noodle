@@ -1,5 +1,6 @@
 package br.ifsp.edu.dmo1.noodle.ui.view.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -23,6 +24,7 @@ import br.ifsp.edu.dmo1.noodle.ui.viewmodel.factory.CoursesViewModelFactory
 import br.ifsp.edu.dmo1.noodle.ui.viewmodel.factory.HomeViewModelFactory
 import br.ifsp.edu.dmo1.noodle.ui.viewmodel.factory.MainViewModelFactory
 import br.ifsp.edu.dmo1.noodle.util.PreferencesHelper
+import java.io.File
 
 class CoursesFragment : Fragment(), CourseItemListener {
     private var _binding: FragmentCoursesBinding? = null
@@ -104,6 +106,10 @@ class CoursesFragment : Fragment(), CourseItemListener {
             binding.lessonLayout.visibility = View.GONE
 
             viewModel.selectLesson(null)
+        }
+
+        binding.btnLessonDowload.setOnClickListener {
+
         }
     }
 

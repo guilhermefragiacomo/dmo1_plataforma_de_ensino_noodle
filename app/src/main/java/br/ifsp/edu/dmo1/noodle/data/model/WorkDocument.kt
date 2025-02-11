@@ -18,9 +18,9 @@ import androidx.room.PrimaryKey
 class WorkDocument (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "work_document_id")
-    var workDocumentId : Int,
+    var workDocumentId : Long = 0,
     @ColumnInfo(name = "work_id")
-    var workId : Int,
+    var workId : Long,
     @ColumnInfo(name = "document")
     var document : String = "",
     @ColumnInfo(name = "name")

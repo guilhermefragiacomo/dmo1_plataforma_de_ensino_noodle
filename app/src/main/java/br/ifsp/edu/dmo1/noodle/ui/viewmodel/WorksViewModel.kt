@@ -23,6 +23,9 @@ class WorksViewModel(application : Application, private val preferencesHelper: P
     private val _works = MutableLiveData<List<Work>>()
     val works : LiveData<List<Work>> = _works
 
+    private val _file = MutableLiveData<String>()
+    val file : LiveData<String> = _file;
+
     init {
         setDataset();
     }
@@ -51,5 +54,9 @@ class WorksViewModel(application : Application, private val preferencesHelper: P
                 }
             }
         }
+    }
+
+    fun saveDocument(file : String) {
+        _file.value = file;
     }
 }
